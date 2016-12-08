@@ -12,23 +12,23 @@ class App extends Component {
     this.state = {
       playlist: [],
       loading: true,
-      error: false,
+      error: null,
     };
   }
 
   componentWillMount() {
     Soundcloud.resolve('https://soundcloud.com/qatataq/sets/seleqta004-maazel-qatataq-birthday')
-      .then(response => Soundcloud.get(`/playlists/${response.id}`))
-      .then(response => {
+      .then(({ id }) => Soundcloud.get(`/playlists/${id}`))
+      .then(({ tracks }) => {
         this.setState({
-          playlist: response.tracks,
+          playlist: tracks,
           loading: false,
         });
       })
       .catch(error => {
         this.setState({
           loading: false,
-          error: true,
+          error,
         });
       });
   }
