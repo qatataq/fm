@@ -14,5 +14,8 @@ build
 .env
 npm-debug.log
 
+# WebStorm
+.idea/
+
 # api config
 apiConfig.json
