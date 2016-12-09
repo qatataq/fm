@@ -26,28 +26,25 @@ class Player extends Component {
    * Play or pause the current track
    */
   togglePlay = () => {
-    const audio = this.refs.audio;
-    audio.paused ? audio.play() : audio.pause();
+    this.audio.paused ? this.audio.play() : this.audio.pause();
   };
 
   /**
    * Mute or unmute the audio player
    */
   toggleMute = () => {
-    const audio = this.refs.audio;
-    audio.volume = audio.volume ? 0 : 1;
+    this.audio.volume = this.audio.volume ? 0 : 1;
   };
 
   /**
    * Change the current track to the next one from the playlist
    */
   nextTrack = () => {
-    const state = this.state,
-          audio = this.refs.audio;
+    const state = this.state;
     this.setState({ index: (state.index+1) % state.tracks.length });
-    audio.pause();
-    audio.load();
-    audio.play();
+    this.audio.pause();
+    this.audio.load();
+    this.audio.play();
   };
 
   render() {
@@ -59,7 +56,7 @@ class Player extends Component {
         <button type="button" onClick={this.toggleMute}>Mute</button>
         <button type="button" onClick={this.nextTrack}>Next</button>
         { tracks.length ?
-          <audio ref="audio" autoPlay onEnded={this.nextTrack}>
+          <audio ref={audio => this.audio = audio} autoPlay onEnded={this.nextTrack}>
             <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
           </audio> : null }
       </div>
