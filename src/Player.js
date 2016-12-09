@@ -18,8 +18,9 @@ class Player extends Component {
    * Add the tracks from props to a new state
    */
   componentWillReceiveProps(nextProps) {
-    if(nextProps.playlist)
-        this.setState({ tracks: nextProps.playlist });
+    if (nextProps.playlist) {
+      this.setState({ tracks: nextProps.playlist });
+    }
   }
 
   /**
@@ -41,7 +42,7 @@ class Player extends Component {
    */
   nextTrack = () => {
     const state = this.state;
-    this.setState({ index: (state.index+1) % state.tracks.length });
+    this.setState({ index: (state.index + 1) % state.tracks.length });
     this.audio.pause();
     this.audio.load();
     this.audio.play();
@@ -55,10 +56,11 @@ class Player extends Component {
         <button type="button" onClick={this.togglePlay}>Play/Pause</button>
         <button type="button" onClick={this.toggleMute}>Mute</button>
         <button type="button" onClick={this.nextTrack}>Next</button>
-        { tracks.length ?
+        {tracks.length && (
           <audio ref={audio => this.audio = audio} autoPlay onEnded={this.nextTrack}>
             <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
-          </audio> : null }
+          </audio>
+        )}
       </div>
     );
   }
