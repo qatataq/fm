@@ -4,20 +4,16 @@ class Player extends Component {
   static propTypes = {
     apiConfig: PropTypes.object.isRequired,
     playlist: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }
+  };
+
   /**
    * Init the state waiting for the tracks, and indicating the starting index
    */
-  constructor(props) {
-    super(props);
-    this.state = {
-      tracks: [],
-      index: 0,
-    }
-    this.togglePlay = this.togglePlay.bind(this);
-    this.toggleMute = this.toggleMute.bind(this);
-    this.nextTrack = this.nextTrack.bind(this);
-  }
+  state = {
+    tracks: [],
+    index: 0,
+  };
+
   /**
    * Add the tracks from props to a new state
    */
@@ -25,31 +21,35 @@ class Player extends Component {
     if(nextProps.playlist)
         this.setState({ tracks: nextProps.playlist });
   }
+
   /**
    * Play or pause the current track
    */
-  togglePlay() {
+  togglePlay = () => {
     const audio = this.refs.audio;
     audio.paused ? audio.play() : audio.pause();
-  }
+  };
+
   /**
    * Mute or unmute the audio player
    */
-  toggleMute() {
+  toggleMute = () => {
     const audio = this.refs.audio;
     audio.volume = audio.volume ? 0 : 1;
-  }
+  };
+
   /**
    * Change the current track to the next one from the playlist
    */
-  nextTrack() {
+  nextTrack = () => {
     const state = this.state,
           audio = this.refs.audio;
     this.setState({ index: (state.index+1) % state.tracks.length });
     audio.pause();
     audio.load();
     audio.play();
-  }
+  };
+
   render() {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
