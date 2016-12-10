@@ -43,7 +43,7 @@
     padding: 1rem;
 }
 
-.player-column>* {
+.player-column > * {
     position: relative;
 }
 
@@ -55,6 +55,20 @@
 .track-pic img {
     width: 85%;
     margin: 7.5%;
+}
+
+.track-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.track-play-button {
+    margin-right: 4rem;
+    cursor: pointer;
+}
+
+.track-pause-button {
+    cursor: pointer;
 }
 
 .track-title {

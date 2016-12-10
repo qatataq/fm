@@ -19,19 +19,17 @@
     right: -1.5rem;
     width: 84%;
     height: 29rem;
-    background-image: url('./aaa.svg');
-    background-position: top right;
+    background: url('./aaa.svg') top right no-repeat;
 }
 
 .app::after {
     top: 50%;
-    left: 2rem;
-    width: 8%;
-    height: 33%;
-    min-width: 4rem;
-    background-image: url('./logo.svg');
-    background-position: center;
-    transform: translateY(-50%);
+    left: 4rem;
+    width: 403px;
+    height: 82px;
+    background: url('./logo.svg') center no-repeat;
+    transform: rotate(-90deg) translateX(-50%);
+    transform-origin: left;
 }
 
 
