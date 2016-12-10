@@ -1,24 +1,45 @@
-.App {
-  text-align: center;
+.app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #f6f6fc;
+    overflow: hidden;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.app::before,
+.app::after {
+    content: '';
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.app::before {
+    top: 3rem;
+    right: -1.5rem;
+    width: 84%;
+    height: 29rem;
+    background-image: url('./aaa.svg');
+    background-position: top right;
 }
 
-.App-intro {
-  font-size: large;
+.app::after {
+    top: 50%;
+    left: 2rem;
+    width: 8%;
+    height: 33%;
+    min-width: 4rem;
+    background-image: url('./logo.svg');
+    background-position: center;
+    transform: translateY(-50%);
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #625fe2;
 }

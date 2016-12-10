@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import './Player.css';
+
 class Player extends Component {
   static propTypes = {
     apiConfig: PropTypes.object.isRequired,
@@ -51,15 +53,32 @@ class Player extends Component {
   render() {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
+          console.log(tracks[index]);
     return (
       <div className="player">
-        <button type="button" onClick={this.togglePlay}>Play/Pause</button>
-        <button type="button" onClick={this.toggleMute}>Mute</button>
-        <button type="button" onClick={this.nextTrack}>Next</button>
+        <div className="player-shadow"></div>
+        <div className="player-background"></div>
         {tracks.length && (
-          <audio ref={audio => this.audio = audio} autoPlay onEnded={this.nextTrack}>
-            <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
-          </audio>
+          <div className="player-content">
+            <div className="player-column">
+              <div className="track-pic">
+                <img src={tracks[index].artwork_url.replace('large', 't500x500')} alt="track artwork" />
+              </div>
+              <button type="button" className="track-play-pause" onClick={this.togglePlay}>Play/Pause</button>
+              <button type="button" className="track-mute" onClick={this.toggleMute}>Mute</button>
+            </div>
+            <div className="player-column player-column-light">
+              <div className="track-title">{tracks[index].title}</div>
+              <div className="track-artist">{tracks[index].user.username}</div>
+              <div className="track-label">{tracks[index].label_name}</div>
+              <div className="track-skip">
+                <button type="button" onClick={this.nextTrack}>Next</button>
+              </div>
+            </div>
+            <audio ref={audio => this.audio = audio} autoPlay onEnded={this.nextTrack}>
+              <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
+            </audio>
+          </div>  
         )}
       </div>
     );
