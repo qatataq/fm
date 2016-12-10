@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Soundcloud from 'soundcloud';
 import _ from 'lodash';
 
-import logo from './logo.svg';
 import Player from './Player';
 import './App.css';
 import apiConfig from '../apiConfig.json';
@@ -43,12 +42,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to qatataq radio!</h2>
-        </div>
+      <div className="app">
         <Player apiConfig={apiConfig} playlist={this.state.playlist}/>
+        <footer>legal content</footer>
       </div>
     );
   }
