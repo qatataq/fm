@@ -10,3 +10,25 @@ body,
     letter-spacing: .025rem;
     background: #f6f6fc;
 }
+
+a:link {
+    color: #5b595b;
+    text-decoration: none;
+    border-bottom: 2px solid #fafafa;
+    transition: border-bottom .3s ease-in;
+}
+
+a:visited {
+    color: #5b595b;
+}
+
+a:hover {
+    border-bottom: 2px solid #eee;
+}
+
+a:focus,
+a:active {
+    background: #fff;
+    text-decoration: none;
+    color: #5b595b;
+}
