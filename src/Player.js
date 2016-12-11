@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
+import { Play, Mute } from './Icons';
 import './Player.css';
 
 class Player extends Component {
@@ -11,6 +12,7 @@ class Player extends Component {
   /**
    * Init the state waiting for the tracks, and indicating the starting index
    */
+  audio = {};
   state = {
     tracks: [],
     index: 0,
@@ -30,6 +32,7 @@ class Player extends Component {
    */
   togglePlay = () => {
     this.audio.paused ? this.audio.play() : this.audio.pause();
+    this.forceUpdate();
   };
 
   /**
@@ -37,6 +40,7 @@ class Player extends Component {
    */
   toggleMute = () => {
     this.audio.volume = this.audio.volume ? 0 : 1;
+    this.forceUpdate();
   };
 
   /**
@@ -53,7 +57,7 @@ class Player extends Component {
   render() {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
-          console.log(tracks[index]);
+
     return (
       <div className="player">
         <div className="player-shadow"></div>
@@ -62,10 +66,23 @@ class Player extends Component {
           <div className="player-content">
             <div className="player-column">
               <div className="track-pic">
-                <img src={tracks[index].artwork_url.replace('large', 't500x500')} alt="track artwork" />
+                <img
+                  src={tracks[index].artwork_url.replace('large', 't500x500')}
+                  alt="track artwork"
+                />
               </div>
-              <button type="button" className="track-play-pause" onClick={this.togglePlay}>Play/Pause</button>
-              <button type="button" className="track-mute" onClick={this.toggleMute}>Mute</button>
+              <div className="track-buttons">
+                <Play
+                  onClick={this.togglePlay}
+                  isPlayed={!this.audio.paused}
+                  className="track-play-button"
+                />
+                <Mute
+                  onClick={this.toggleMute}
+                  isMuted={this.audio.volume === 0}
+                  className="track-pause-button"
+                />
+              </div>
             </div>
             <div className="player-column player-column-light">
               <div className="track-title">{tracks[index].title}</div>
