@@ -14,16 +14,19 @@ class Player extends Component {
    * Init the state waiting for the tracks, and indicating the starting index
    */
   audio = {};
+  player = {};
   state = {
     tracks: [],
     index: 0,
   };
 
   /**
-   * When the component has updated trigger an apparition animation
+   * When the component has updated trigger an apparition animation,
+   * and start fading in the audio volume
    */
   componentDidUpdate() {
-    Velocity(this.refs.player,
+    this.audio.volume= 0;
+    Velocity(this.player,
              {
                top: '18%',
                opacity: 1
@@ -32,9 +35,19 @@ class Player extends Component {
                duration: 1000,
                easing: [.58,1.6,.57,.87],
                delay: 1000
-             });
+           }).then(this.fadeInVolume);
   }
-  
+
+  /**
+   * While the sound is inferior to 1 keep incrementing it
+   */
+  fadeInVolume = () => {
+      if(this.audio.volume < 1) {
+          this.audio.volume = (this.audio.volume + .01).toFixed(2);
+          setTimeout(this.fadeInVolume, 10);
+      }
+  }
+
   /**
    * Add the tracks from props to a new state
    */
@@ -80,7 +93,7 @@ class Player extends Component {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
     return (
-      <div className='player' ref='player'>
+      <div className='player' ref={player => this.player = player}>
         <div className="player-shadow"></div>
         <div className="player-background"></div>
           <div className="player-content">
