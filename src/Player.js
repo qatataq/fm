@@ -56,7 +56,8 @@ class Player extends Component {
     this.audio.load();
     this.audio.play();
     Velocity( element, {translateX:"8px"}, animParams);
-    Velocity( element, 'reverse', animParams);
+    Velocity( element, 'reverse', animParams)
+        .then(() => { Velocity( element, 'stop', true); });
   };
 
   render() {

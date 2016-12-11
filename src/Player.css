@@ -66,6 +66,7 @@
 .track-buttons {
     display: flex;
     justify-content: center;
+    user-select: none;
 }
 
 .track-play-button {
@@ -111,6 +112,7 @@
     cursor: pointer;
     transition: color .1s ease-in;
     will-change: right;
+    user-select: none;
 }
 
 .track-skip:hover {
