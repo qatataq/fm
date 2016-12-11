@@ -96,13 +96,60 @@
     color: #bdbdbd;
 }
 
+.track-skip {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 3rem;
+    width: 8.8rem;
+    height: 3.125rem;
+    background: #fff;
+    color: #bdbdbd;
+    line-height: 3.125rem;
+    text-align: center;
+    border-radius: 2px;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: color .1s ease-in;
+    will-change: right;
+}
+
+.track-skip:hover {
+    animation: wiggle .2s cubic-bezier(.58,1.6,.57,.87);
+}
+
+.track-skip::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 50%;
+    box-shadow: 0 4px 14px 0 rgba(98,94,226,.1), 0 0 50px 5px rgba(98,94,226,.2);
+    transform: translate3d(0,0,-1px);
+}
+
 @keyframes appearing {
     0% {
-        top: 15%;
+        top: 21%;
         opacity: .5;
     }
     100% {
         top: 18%;
         opacity: 1;
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        right: 1.25rem;
+    }
+    33% {
+        right: 1.4rem;
+    }
+    66% {
+        right: 1.1rem;
+    }
+    100% {
+        right: 1.25rem;
     }
 }

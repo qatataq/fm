@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Velocity from 'velocity-animate';
 
 import { Play, Mute } from './Icons';
 import './Player.css';
@@ -46,18 +47,21 @@ class Player extends Component {
   /**
    * Change the current track to the next one from the playlist
    */
-  nextTrack = () => {
-    const state = this.state;
+  nextTrack = (event) => {
+    const state = this.state,
+          element = event.currentTarget,
+          animParams = { duration:200, easing:[.13,1.67,.72,2] };
     this.setState({ index: (state.index + 1) % state.tracks.length });
     this.audio.pause();
     this.audio.load();
     this.audio.play();
+    Velocity( element, {translateX:"8px"}, animParams);
+    Velocity( element, 'reverse', animParams);
   };
 
   render() {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
-
     return (
       <div className={`player ${tracks.length && ('should-appear')}`}>
         <div className="player-shadow"></div>
@@ -84,11 +88,15 @@ class Player extends Component {
               </div>
             </div>
             <div className="player-column player-column-light">
-              <div className="track-title">{ tracks.length && tracks[index].title}</div>
+              <div className="track-title">
+                  {tracks.length && (
+                      <a href={ tracks[index].permalink_url } target="_blank">{tracks[index].title}</a>
+                  )}
+              </div>
               <div className="track-artist">{ tracks.length && tracks[index].user.username}</div>
               <div className="track-label">{ tracks.length && tracks[index].label_name}</div>
-              <div className="track-skip">
-                <button type="button" onClick={this.nextTrack}>Next</button>
+              <div className="track-skip" onClick={this.nextTrack}>
+                skip this track
               </div>
             </div>
             {tracks.length && (
