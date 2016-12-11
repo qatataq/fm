@@ -71,7 +71,7 @@ footer {
 
 .fade-leave.fade-leave-active {
   opacity: 0;
-  transition: opacity 500ms ease-in;
+  transition: opacity 500ms ease-in-out;
 }
 
 @keyframes loading-bar {

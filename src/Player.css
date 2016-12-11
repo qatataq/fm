@@ -1,11 +1,17 @@
 .player {
     position: relative;
-    top: 18%;
+    top: 15%;
     width: 100%;
     height: 82%;
     max-width: 48.75rem;
     max-height: 31.25rem;
     margin: 0 auto;
+    opacity: .5;
+    will-change: top, opacity;
+}
+
+.player.should-appear {
+    animation: appearing 1s cubic-bezier(.58,1.6,.57,.87) .2s forwards;
 }
 
 .player-shadow {
@@ -88,4 +94,15 @@
     margin-top: .75rem;
     font-size: 1.5rem;
     color: #bdbdbd;
+}
+
+@keyframes appearing {
+    0% {
+        top: 15%;
+        opacity: .5;
+    }
+    100% {
+        top: 18%;
+        opacity: 1;
+    }
 }
