@@ -1,17 +1,13 @@
 .player {
     position: relative;
-    top: 15%;
+    top: 21%;
     width: 100%;
     height: 82%;
     max-width: 48.75rem;
     max-height: 31.25rem;
     margin: 0 auto;
-    opacity: .5;
+    opacity: 0;
     will-change: top, opacity;
-}
-
-.player.should-appear {
-    animation: appearing 1s cubic-bezier(.58,1.6,.57,.87) .2s forwards;
 }
 
 .player-shadow {
@@ -128,17 +124,6 @@
     height: 50%;
     box-shadow: 0 4px 14px 0 rgba(98,94,226,.1), 0 0 50px 5px rgba(98,94,226,.2);
     transform: translate3d(0,0,-1px);
-}
-
-@keyframes appearing {
-    0% {
-        top: 21%;
-        opacity: .5;
-    }
-    100% {
-        top: 18%;
-        opacity: 1;
-    }
 }
 
 @keyframes wiggle {

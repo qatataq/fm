@@ -20,6 +20,22 @@ class Player extends Component {
   };
 
   /**
+   * When the component has updated trigger an apparition animation
+   */
+  componentDidUpdate() {
+    Velocity(this.refs.player,
+             {
+               top: '18%',
+               opacity: 1
+             },
+             {
+               duration: 1000,
+               easing: [.58,1.6,.57,.87],
+               delay: 1000
+             });
+  }
+  
+  /**
    * Add the tracks from props to a new state
    */
   componentWillReceiveProps(nextProps) {
@@ -50,7 +66,7 @@ class Player extends Component {
   nextTrack = (event) => {
     const state = this.state,
           element = event.currentTarget,
-          animParams = { duration:200, easing:[.13,1.67,.72,2] };
+          animParams = { duration:200, easing: [.13,1.67,.72,2] };
     this.setState({ index: (state.index + 1) % state.tracks.length });
     this.audio.pause();
     this.audio.load();
@@ -64,7 +80,7 @@ class Player extends Component {
     const { tracks, index } = this.state,
           { apiConfig } = this.props;
     return (
-      <div className={`player ${tracks.length && ('should-appear')}`}>
+      <div className='player' ref='player'>
         <div className="player-shadow"></div>
         <div className="player-background"></div>
           <div className="player-content">
