@@ -18,7 +18,7 @@ const Play = ({ isPlayed, ...props }) => (
 );
 
 Play.propTypes = {
-  isPlayed: PropTypes.func.isRequired,
+  isPlayed: PropTypes.bool.isRequired,
 };
 
 const Mute = ({ isMuted, ...props }) => (
@@ -46,7 +46,7 @@ const Mute = ({ isMuted, ...props }) => (
 );
 
 Mute.propTypes = {
-  isMuted: PropTypes.func.isRequired,
+  isMuted: PropTypes.bool.isRequired,
 };
 
 export {

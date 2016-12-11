@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Soundcloud from 'soundcloud';
 import _ from 'lodash';
 
 import Player from './Player';
+import logo from './logo.svg';
 import './App.css';
 import apiConfig from '../apiConfig.json';
 
@@ -43,6 +45,18 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+        <ReactCSSTransitionGroup
+           transitionName="fade"
+           transitionEnterTimeout={0}
+           transitionLeaveTimeout={500}>
+            { this.state.loading && (
+              <div className="loader">
+                <div className="loading">
+                  <img src={logo} alt="qatataqfm logo" />
+                </div>
+              </div>
+            )}
+        </ReactCSSTransitionGroup>
         <Player apiConfig={apiConfig} playlist={this.state.playlist}/>
         <footer>legal content</footer>
       </div>
