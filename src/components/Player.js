@@ -6,7 +6,6 @@ import '../styles/Player.css';
 
 class Player extends Component {
   static propTypes = {
-    apiConfig: PropTypes.object.isRequired,
     playlist: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
@@ -26,7 +25,16 @@ class Player extends Component {
    */
   componentDidMount() {
     this.audio.paused = this.ua.indexOf('mobi') > -1;
-    window.addEventListener("resize", this.setPlayerAppearance);
+    window.addEventListener('resize', this.setPlayerAppearance);
+  }
+
+  /**
+   * Add the tracks from props to a new state
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.playlist) {
+      this.setState({ tracks: nextProps.playlist });
+    }
   }
 
   /**
@@ -48,7 +56,7 @@ class Player extends Component {
       duration: 1000,
       easing: [.58,1.6,.57,.87],
       delay: isNaN(delay) ? 0 : delay,
-  };
+    };
     Velocity( this.player, 'stop', true);
     Velocity(this.player, properties, parameters);
   }
@@ -68,15 +76,6 @@ class Player extends Component {
     if(this.audio.volume < 1) {
       this.audio.volume = (this.audio.volume + .01).toFixed(2);
       setTimeout(this.fadeInVolume, 10);
-    }
-  }
-
-  /**
-   * Add the tracks from props to a new state
-   */
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playlist) {
-      this.setState({ tracks: nextProps.playlist });
     }
   }
 
@@ -107,16 +106,16 @@ class Player extends Component {
     this.audio.pause();
     this.audio.load();
     this.audio.play();
-    Velocity( element, {translateX:"8px"}, animParams);
-    Velocity( element, 'reverse', animParams)
+    Velocity(element, {translateX:"8px"}, animParams);
+    Velocity(element, 'reverse', animParams)
         .then(() => { Velocity( element, 'stop', true); });
   };
 
   render() {
-    const { tracks, index } = this.state,
-          { apiConfig } = this.props;
+    const { tracks, index } = this.state;
+
     return (
-      <div className='player' ref={player => this.player = player}>
+      <div className="player" ref={player => this.player = player}>
         <div className="player-shadow"></div>
         <div className="player-background"></div>
           <div className="player-content">
@@ -154,7 +153,7 @@ class Player extends Component {
             </div>
             {tracks.length && (
                 <audio ref={audio => this.audio = audio} autoPlay onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
-                  <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
+                  <source src={tracks[index].stream_url} />
                 </audio>
             )}
           </div>

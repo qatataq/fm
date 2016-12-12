@@ -6,7 +6,10 @@ import 'whatwg-fetch';
 import Player from './Player';
 import { Loader, Error } from './States';
 import '../styles/App.css';
-import apiConfig from '../../apiConfig.json';
+
+const SC_CLIENT_ID = 'b8198f1a65c0235a26607a834bcc3062';
+const SC_PLAYLIST_ID = '219590548';
+const SC_PLAYLIST_SECRET_TOKEN = 's-suaqL';
 
 class App extends Component {
   /**
@@ -22,12 +25,11 @@ class App extends Component {
    * When the component will mount, for a playlist url we fetch the tracks of this playlist
    */
   componentWillMount() {
-    const fetchEndpoint = `https://api.soundcloud.com/playlists/219590548.json?client_id=${apiConfig.client_id}&secret_token=s-suaqL`;
-    fetch(fetchEndpoint)
+    fetch(`https://api.soundcloud.com/playlists/${SC_PLAYLIST_ID}.json?client_id=${SC_CLIENT_ID}&secret_token=${SC_PLAYLIST_SECRET_TOKEN}`)
       .then(response => response.json())
       .then(({ tracks }) => {
         tracks.map(track => {
-          track.stream_url = track.stream_url.split('?secret_token')[0];
+          track.stream_url = `${track.stream_url.split('?secret_token')[0]}?client_id=${SC_CLIENT_ID}`;
           return track;
         });
         this.setState({
@@ -50,11 +52,15 @@ class App extends Component {
            transitionName="fade"
            transitionEnterTimeout={0}
            transitionLeaveTimeout={500}>
-            { this.state.loading && (<Loader />)}
-            { this.state.error && (<Error />)}
+            {this.state.loading && (<Loader />)}
+            {this.state.error && (<Error />)}
         </ReactCSSTransitionGroup>
-        { !this.state.error && (<Player apiConfig={apiConfig} playlist={this.state.playlist}/>)}
-        <footer>Project at <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>, using <span className="soundcloud-logo"></span></footer>
+        {!this.state.error && <Player playlist={this.state.playlist}/>}
+        <footer>
+          Project at
+          <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>,
+          using <span className="soundcloud-logo" />
+        </footer>
       </div>
     );
   }
