@@ -25,7 +25,6 @@ class Player extends Component {
    * and start fading in the audio volume
    */
   componentDidUpdate() {
-    this.audio.volume= 0;
     Velocity(this.player,
              {
                top: '18%',
@@ -35,17 +34,25 @@ class Player extends Component {
                duration: 1000,
                easing: [.58,1.6,.57,.87],
                delay: 1000
-           }).then(this.fadeInVolume);
+           });
+  }
+
+  /**
+   * When the track is loaded start fading the volume
+   */
+  loadedTrack = () => {
+    this.audio.volume= 0;
+    this.fadeInVolume();
   }
 
   /**
    * While the sound is inferior to 1 keep incrementing it
    */
   fadeInVolume = () => {
-      if(this.audio.volume < 1) {
-          this.audio.volume = (this.audio.volume + .01).toFixed(2);
-          setTimeout(this.fadeInVolume, 10);
-      }
+    if(this.audio.volume < 1) {
+      this.audio.volume = (this.audio.volume + .01).toFixed(2);
+      setTimeout(this.fadeInVolume, 10);
+    }
   }
 
   /**
@@ -130,7 +137,7 @@ class Player extends Component {
               </div>
             </div>
             {tracks.length && (
-                <audio ref={audio => this.audio = audio} autoPlay onEnded={this.nextTrack}>
+                <audio ref={audio => this.audio = audio} autoPlay onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
                   <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
                 </audio>
             )}
