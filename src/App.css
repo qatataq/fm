@@ -41,6 +41,15 @@ footer {
     color: #625fe2;
 }
 
+.soundcloud-logo {
+    display: inline-block;
+    width: 6.5rem;
+    height: 1rem;
+    margin-bottom: -.125rem;
+    background: url('./soundcloud-logo.png') center;
+    background-size: contain;
+}
+
 .loader,
 .error {
     z-index: 2;
