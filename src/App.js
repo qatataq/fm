@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Soundcloud from 'soundcloud';
 import _ from 'lodash';
 import 'whatwg-fetch';
 
@@ -11,17 +10,13 @@ import apiConfig from '../apiConfig.json';
 
 class App extends Component {
   /**
-   * The constructor will init the SoundCloud library and set the initial state of the component
+   * This will set the initial state of the component
    */
-  constructor(props) {
-    super(props);
-    Soundcloud.initialize(apiConfig);
-    this.state = {
-      playlist: [],
-      loading: true,
-      error: null,
-    };
-  }
+  state = {
+    playlist: [],
+    loading: true,
+    error: null,
+  };
 
   /**
    * When the component will mount, for a playlist url we fetch the tracks of this playlist
