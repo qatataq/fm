@@ -129,7 +129,7 @@ class Player extends Component {
               <div className="track-buttons">
                 <Play
                   onClick={this.togglePlay}
-                  isPlayed={this.ua.indexOf('mobile') > -1 ? true : !this.audio.paused}
+                  isPlayed={this.ua.indexOf('android') > -1 ? true : !this.audio.paused}
                   className="track-play-button"
                 />
                 <Mute
