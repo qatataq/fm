@@ -57,9 +57,9 @@ class Player extends Component {
       easing: [.58,1.6,.57,.87],
       delay: isNaN(delay) ? 0 : delay,
     };
-    Velocity( this.player, 'stop', true);
+    Velocity(this.player, 'stop', true);
     Velocity(this.player, properties, parameters);
-  }
+  };
 
   /**
    * When the track is loaded start fading the volume
@@ -67,7 +67,7 @@ class Player extends Component {
   loadedTrack = () => {
     this.audio.volume= 0;
     this.fadeInVolume();
-  }
+  };
 
   /**
    * While the sound is inferior to 1 keep incrementing it
@@ -77,7 +77,7 @@ class Player extends Component {
       this.audio.volume = (this.audio.volume + .01).toFixed(2);
       setTimeout(this.fadeInVolume, 10);
     }
-  }
+  };
 
   /**
    * Play or pause the current track
@@ -106,9 +106,9 @@ class Player extends Component {
     this.audio.pause();
     this.audio.load();
     this.audio.play();
-    Velocity(element, {translateX:"8px"}, animParams);
+    Velocity(element, { translateX: '8px' }, animParams);
     Velocity(element, 'reverse', animParams)
-        .then(() => { Velocity( element, 'stop', true); });
+        .then(() => { Velocity(element, 'stop', true); });
   };
 
   render() {
