@@ -4,7 +4,7 @@ import Soundcloud from 'soundcloud';
 import _ from 'lodash';
 
 import Player from './Player';
-import logo from './logo.svg';
+import { Loader, Error } from './States';
 import './App.css';
 import apiConfig from '../apiConfig.json';
 
@@ -49,15 +49,10 @@ class App extends Component {
            transitionName="fade"
            transitionEnterTimeout={0}
            transitionLeaveTimeout={500}>
-            { this.state.loading && (
-              <div className="loader">
-                <div className="loading">
-                  <img src={logo} alt="qatataqfm logo" />
-                </div>
-              </div>
-            )}
+            { this.state.loading && (<Loader />)}
+            { this.state.error && (<Error />)}
         </ReactCSSTransitionGroup>
-        <Player apiConfig={apiConfig} playlist={this.state.playlist}/>
+        { !this.state.error && (<Player apiConfig={apiConfig} playlist={this.state.playlist}/>)}
         <footer>legal content</footer>
       </div>
     );
