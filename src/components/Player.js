@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Velocity from 'velocity-animate';
+import _ from 'lodash';
 
 import { Play, Mute } from './Icons';
 import '../styles/Player.css';
@@ -25,7 +26,8 @@ class Player extends Component {
    */
   componentDidMount() {
     this.audio.paused = this.ua.indexOf('mobi') > -1;
-    window.addEventListener('resize', this.setPlayerAppearance);
+    const setPlayerAppearanceDebounced = _.debounce(this.setPlayerAppearance, 250);
+    window.addEventListener('resize', setPlayerAppearanceDebounced);
   }
 
   /**
@@ -49,11 +51,11 @@ class Player extends Component {
    */
   setPlayerAppearance = (delay) => {
     const properties = {
-      top: window.innerWidth > 768 ? '18%' : '0',
+      top: window.innerWidth > 768 ? '18%' : '0px',
       opacity: 1,
     };
     const parameters = {
-      duration: 1000,
+      duration: isNaN(delay) ? 500 : 1000,
       easing: [.58,1.6,.57,.87],
       delay: isNaN(delay) ? 0 : delay,
     };
@@ -118,45 +120,46 @@ class Player extends Component {
       <div className="player" ref={player => this.player = player}>
         <div className="player-shadow"></div>
         <div className="player-background"></div>
-          <div className="player-content">
-            <div className="player-column">
-              <div className="track-pic">
-                <img
-                  src={tracks.length && tracks[index].artwork_url.replace('large', 't500x500')}
-                  alt="track artwork"
-                />
-              </div>
-              <div className="track-buttons">
-                <Play
-                  onClick={this.togglePlay}
-                  isPlayed={!this.audio.paused}
-                  className="track-play-button"
-                />
-                <Mute
-                  onClick={this.toggleMute}
-                  isMuted={this.audio.volume === 0}
-                  className="track-pause-button"
-                />
-              </div>
+        <div className="player-content">
+          <div className="player-column">
+            <div className="track-pic">
+              <img
+                src={tracks.length && tracks[index].artwork_url.replace('large', 't500x500')}
+                alt="track artwork"
+              />
             </div>
-            <div className="player-column player-column-light">
-              <div className="track-title">
-                  {tracks.length && (
-                      <a href={ tracks[index].permalink_url } target="_blank">{tracks[index].title}</a>
-                  )}
-              </div>
-              <div className="track-artist">{ tracks.length && tracks[index].user.username}</div>
-              <div className="track-label">{ tracks.length && tracks[index].label_name}</div>
-              <div className="track-skip" onClick={this.nextTrack}>
-                skip this track
-              </div>
+            <div className="track-buttons">
+              <Play
+                onClick={this.togglePlay}
+                isPlayed={!this.audio.paused}
+                className="track-play-button"
+              />
+              <Mute
+                onClick={this.toggleMute}
+                isMuted={this.audio.volume === 0}
+                className="track-pause-button"
+              />
             </div>
-            {tracks.length && (
-                <audio ref={audio => this.audio = audio} autoPlay onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
-                  <source src={tracks[index].stream_url} />
-                </audio>
-            )}
           </div>
+          <div className="player-column player-column-light">
+            <div className="track-title">
+              {tracks.length && (
+                <a href={ tracks[index].permalink_url } target="_blank">{tracks[index].title}</a>
+              )}
+            </div>
+            <div className="track-artist">{ tracks.length && tracks[index].user.username}</div>
+            <div className="track-label">{ tracks.length && tracks[index].label_name}</div>
+            <div className="track-skip" onClick={this.nextTrack}>
+              skip this track
+            </div>
+          </div>
+          {tracks.length && (
+            <audio ref={audio => this.audio = audio} autoPlay
+                   onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
+              <source src={tracks[index].stream_url}/>
+            </audio>
+          )}
+        </div>
       </div>
     );
   }
