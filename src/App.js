@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Soundcloud from 'soundcloud';
 import _ from 'lodash';
+import 'whatwg-fetch';
 
 import Player from './Player';
 import { Loader, Error } from './States';
@@ -26,9 +27,14 @@ class App extends Component {
    * When the component will mount, for a playlist url we fetch the tracks of this playlist
    */
   componentWillMount() {
-    Soundcloud.resolve('https://soundcloud.com/qatataq/sets/seleqta004-maazel-qatataq-birthday')
-      .then(({ id }) => Soundcloud.get(`/playlists/${id}`))
+    const fetchEndpoint = `https://api.soundcloud.com/playlists/219590548.json?client_id=${apiConfig.client_id}&secret_token=s-suaqL`;
+    fetch(fetchEndpoint)
+      .then(response => response.json())
       .then(({ tracks }) => {
+        tracks.map(track => {
+          track.stream_url = track.stream_url.split('?secret_token')[0];
+          return track;
+        });
         this.setState({
           playlist: _.shuffle(tracks),
           loading: false,
