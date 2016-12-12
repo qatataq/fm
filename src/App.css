@@ -8,28 +8,30 @@
     overflow: hidden;
 }
 
-.app::before {
-    content: '';
-    position: absolute;
-    top: 3rem;
-    right: -1.5rem;
-    width: 84%;
-    height: 29rem;
-    background: url('./aaa.svg') top right no-repeat;
-    background-size: contain;
-}
+@media screen and (min-width: 769px) {
+    .app::before {
+        content: '';
+        position: absolute;
+        top: 3rem;
+        right: -1.5rem;
+        width: 84%;
+        height: 29rem;
+        background: url('./aaa.svg') top right no-repeat;
+        background-size: contain;
+    }
 
-.app::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 27%;
-    height: 82px;
-    max-width: 403px;
-    background: url('./logo.svg') center no-repeat;
-    transform: translate(-30%, -50%) rotate(-90deg);
-    transform-origin: center;
-    background-size: contain;
+    .app::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 27%;
+        height: 82px;
+        max-width: 403px;
+        background: url('./logo.svg') center no-repeat;
+        transform: translate(-30%, -50%) rotate(-90deg);
+        transform-origin: center;
+        background-size: contain;
+    }
 }
 
 footer {
