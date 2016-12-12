@@ -55,9 +55,13 @@ class Player extends Component {
    * When the track is loaded start fading the volume
    */
   loadedTrack = () => {
+    try {
+      this.audio.addEventListener('play', () => {});
+    } catch(e) {
+      this.audio.paused = true;
+    }
     this.audio.volume= 0;
     this.fadeInVolume();
-    this.audio.play();
   }
 
   /**
@@ -152,7 +156,7 @@ class Player extends Component {
               </div>
             </div>
             {tracks.length && (
-                <audio ref={audio => this.audio = audio} onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
+                <audio ref={audio => this.audio = audio} autoPlay onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
                   <source src={`${tracks[index].stream_url}?client_id=${apiConfig.client_id}`} />
                 </audio>
             )}
