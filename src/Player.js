@@ -21,20 +21,34 @@ class Player extends Component {
   };
 
   /**
-   * When the component has updated trigger an apparition animation,
-   * and start fading in the audio volume
+   * The player position will change if window is resized
+   */
+  componentDidMount() {
+    window.addEventListener("resize", this.setPlayerAppearance);
+  }
+
+  /**
+   * When the component has updated trigger the player appearance
    */
   componentDidUpdate() {
-    Velocity(this.player,
-             {
-               top: '18%',
-               opacity: 1
-             },
-             {
-               duration: 1000,
-               easing: [.58,1.6,.57,.87],
-               delay: 1000
-           });
+    this.setPlayerAppearance(1000);
+  }
+
+  /**
+   * Define the position and opacity of the player
+   */
+  setPlayerAppearance = (delay) => {
+    const properties = {
+      top: window.innerWidth > 768 ? '18%' : '0',
+      opacity: 1,
+    };
+    const parameters = {
+      duration: 1000,
+      easing: [.58,1.6,.57,.87],
+      delay: isNaN(delay) ? 0 : delay,
+  };
+    Velocity( this.player, 'stop', true);
+    Velocity(this.player, properties, parameters);
   }
 
   /**

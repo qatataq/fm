@@ -53,7 +53,7 @@ class App extends Component {
             { this.state.error && (<Error />)}
         </ReactCSSTransitionGroup>
         { !this.state.error && (<Player apiConfig={apiConfig} playlist={this.state.playlist}/>)}
-        <footer>legal content</footer>
+        <footer>Project at <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>, using <span className="soundcloud-logo"></span></footer>
       </div>
     );
   }

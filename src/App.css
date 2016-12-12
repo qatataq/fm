@@ -8,30 +8,6 @@
     overflow: hidden;
 }
 
-.app::before {
-    content: '';
-    position: absolute;
-    top: 3rem;
-    right: -1.5rem;
-    width: 84%;
-    height: 29rem;
-    background: url('./aaa.svg') top right no-repeat;
-    background-size: contain;
-}
-
-.app::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 27%;
-    height: 82px;
-    max-width: 403px;
-    background: url('./logo.svg') center no-repeat;
-    transform: translate(-30%, -50%) rotate(-90deg);
-    transform-origin: center;
-    background-size: contain;
-}
-
 footer {
     position: fixed;
     bottom: 0;
@@ -39,6 +15,15 @@ footer {
     margin-bottom: 2rem;
     text-align: center;
     color: #625fe2;
+}
+
+.soundcloud-logo {
+    display: inline-block;
+    width: 6.5rem;
+    height: 1rem;
+    margin-bottom: -.125rem;
+    background: url('./soundcloud-logo.png') center;
+    background-size: contain;
 }
 
 .loader,
@@ -62,6 +47,11 @@ footer {
 
 .error-display img {
     width: 400px;
+    max-width: 100%;
+}
+
+.loading img {
+    max-width: 100%;
 }
 
 .loading {
@@ -100,6 +90,39 @@ footer {
 .fade-leave.fade-leave-active {
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+}
+
+
+@media screen and (max-height: 400px) {
+    footer {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .app::before {
+        content: '';
+        position: absolute;
+        top: 3rem;
+        right: -1.5rem;
+        width: 84%;
+        height: 29rem;
+        background: url('./aaa.svg') top right no-repeat;
+        background-size: contain;
+    }
+
+    .app::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 27%;
+        height: 82px;
+        max-width: 403px;
+        background: url('./logo.svg') center no-repeat;
+        transform: translate(-30%, -50%) rotate(-90deg);
+        transform-origin: center;
+        background-size: contain;
+    }
 }
 
 @keyframes loading-bar {
