@@ -59,6 +59,7 @@ class Player extends Component {
       this.audio.play();
     } catch(e) {
       this.audio.paused = true;
+      this.forceUpdate();
     }
     this.audio.volume= 0;
     this.fadeInVolume();
