@@ -25,6 +25,7 @@ class Player extends Component {
    * The player position will change if window is resized
    */
   componentDidMount() {
+    this.audio.paused = this.ua.indexOf('mobi') > -1;
     window.addEventListener("resize", this.setPlayerAppearance);
   }
 
@@ -129,7 +130,7 @@ class Player extends Component {
               <div className="track-buttons">
                 <Play
                   onClick={this.togglePlay}
-                  isPlayed={this.ua.indexOf('android') > -1 ? true : !this.audio.paused}
+                  isPlayed={!this.audio.paused}
                   className="track-play-button"
                 />
                 <Mute
