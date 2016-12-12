@@ -1,7 +1,7 @@
 import React from 'react';
 
-import logo from './logo.svg';
-import error from './error-qatataqfm.svg';
+import logo from '../images/logo.svg';
+import error from '../images/error-qatataqfm.svg';
 
 const Loader = () => (
   <div className="loader">

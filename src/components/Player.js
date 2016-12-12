@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Velocity from 'velocity-animate';
 
 import { Play, Mute } from './Icons';
-import './Player.css';
+import '../styles/Player.css';
 
 class Player extends Component {
   static propTypes = {

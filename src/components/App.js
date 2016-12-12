@@ -5,8 +5,8 @@ import 'whatwg-fetch';
 
 import Player from './Player';
 import { Loader, Error } from './States';
-import './App.css';
-import apiConfig from '../apiConfig.json';
+import '../styles/App.css';
+import apiConfig from '../../apiConfig.json';
 
 class App extends Component {
   /**
