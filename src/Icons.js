@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 const Play = ({ isPlayed, ...props }) => (
   <div {...props}>
     <svg width="46px" height="47px" viewBox="0 0 46 47" version="1.1">
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.2">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-449.000000, -601.000000)" fill="#625FE2">
           <g transform="translate(447.000000, 599.000000)">
             <g id="playpauseIcon" transform="translate(0.000000, 2.000000)">
@@ -24,7 +24,7 @@ Play.propTypes = {
 const Mute = ({ isMuted, ...props }) => (
   <div {...props}>
     <svg width="51px" height="50px" viewBox="0 0 51 50" version="1.1">
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.2">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-554.000000, -600.000000)">
           <g transform="translate(447.000000, 599.000000)">
             <g id="muteIcon" transform="translate(107.000000, 0.000000)">

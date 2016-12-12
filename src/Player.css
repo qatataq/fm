@@ -159,6 +159,9 @@
         bottom: 15%;
         transform: translateX(-50%);
     }
+    .track-buttons > * {
+        opacity: .8;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -170,6 +173,13 @@
 @media screen and (min-width: 768px) {
     .track-skip:hover {
         animation: wiggle .2s cubic-bezier(.58,1.6,.57,.87);
+    }
+    .track-buttons > * {
+        opacity: .2;
+        transition: opacity .3s ease-in-out;
+    }
+    .track-buttons > *:hover {
+        opacity: 1;
     }
 }
 
