@@ -19,24 +19,29 @@ class Player extends Component {
     tracks: [],
     index: 0,
   };
-
+  componentDidMount() {
+        window.addEventListener("resize", this.setPlayerAppearance);
+    }
   /**
    * When the component has updated trigger an apparition animation,
    * and start fading in the audio volume
    */
   componentDidUpdate() {
-    Velocity(this.player,
-             {
-               top: '18%',
-               opacity: 1
-             },
-             {
-               duration: 1000,
-               easing: [.58,1.6,.57,.87],
-               delay: 1000
-           });
+      this.setPlayerAppearance(1000);
   }
-
+  setPlayerAppearance = (delay) => {
+      Velocity( this.player, 'stop', true);
+      Velocity(this.player,
+               {
+                 top: window.innerWidth > 768 ? '18%' : '0',
+                 opacity: 1
+               },
+               {
+                 duration: 1000,
+                 easing: [.58,1.6,.57,.87],
+                 delay: isNaN(delay) ? 0 : delay,
+             });
+  }
   /**
    * When the track is loaded start fading the volume
    */
