@@ -15,6 +15,7 @@ class Player extends Component {
    */
   audio = {};
   player = {};
+  muteButton = {};
   state = {
     tracks: [],
     index: 0,
@@ -93,7 +94,22 @@ class Player extends Component {
    * Mute or unmute the audio player
    */
   toggleMute = () => {
-    this.audio.volume = this.audio.volume ? 0 : 1;
+    const newVolume = this.audio.volume ? 0 : 1;
+    const cross = this.muteButton.querySelector("#cross");
+    const sound = this.muteButton.querySelector("#sound");
+    const properties = (direction = false) => ({
+      translateX: direction ? '0px' : '-30px',
+    });
+    const parameters = (direction = false) => ({
+      duration: 300,
+      easing: [.58,1.6,.57,.87],
+      delay: direction ? 200 : 0,
+    });
+    this.audio.volume = newVolume;
+    Velocity(cross, 'stop', true);
+    Velocity(sound, 'stop', true);
+    Velocity(cross, properties(this.audio.volume), parameters(this.audio.volume));
+    Velocity(sound, properties(!this.audio.volume), parameters(!this.audio.volume));
     this.forceUpdate();
   };
 
@@ -135,6 +151,7 @@ class Player extends Component {
                 className="track-play-button"
               />
               <Mute
+                reference={mute => this.muteButton = mute}
                 onClick={this.toggleMute}
                 isMuted={this.audio.volume === 0}
                 className="track-pause-button"
