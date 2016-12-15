@@ -57,7 +57,7 @@ class App extends Component {
         </ReactCSSTransitionGroup>
         {!this.state.error && <Player playlist={this.state.playlist}/>}
         <footer>
-          Project at
+          <span>Project at </span>
           <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>,
           using <span className="soundcloud-logo" />
         </footer>
