@@ -139,10 +139,12 @@ class Player extends Component {
         <div className="player-content">
           <div className="player-column">
             <div className="track-pic">
-              <img
-                src={tracks.length && tracks[index].artwork_url.replace('large', 't500x500')}
-                alt="track artwork"
-              />
+              {tracks.length && (
+                <img
+                  src={tracks[index].artwork_url.replace('large', 't500x500')}
+                  alt="track artwork"
+                />
+              )}
             </div>
             <div className="track-buttons">
               <Play
@@ -161,11 +163,11 @@ class Player extends Component {
           <div className="player-column player-column-light">
             <div className="track-title">
               {tracks.length && (
-                <a href={ tracks[index].permalink_url } target="_blank">{tracks[index].title}</a>
+                <a href={tracks[index].permalink_url} target="_blank">{tracks[index].title}</a>
               )}
             </div>
-            <div className="track-artist">{ tracks.length && tracks[index].user.username}</div>
-            <div className="track-label">{ tracks.length && tracks[index].label_name}</div>
+            <div className="track-artist">{tracks.length && tracks[index].user.username}</div>
+            <div className="track-label">{tracks.length && tracks[index].label_name}</div>
             <div className="track-skip" onClick={this.nextTrack}>
               skip this track
             </div>
