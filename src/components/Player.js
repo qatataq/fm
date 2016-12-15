@@ -20,13 +20,12 @@ class Player extends Component {
     tracks: [],
     index: 0,
   };
-  ua = navigator.userAgent.toLowerCase();
 
   /**
    * The player position will change if window is resized
    */
   componentDidMount() {
-    this.audio.paused = this.ua.indexOf('mobi') > -1;
+    this.audio.paused = navigator.userAgent.toLowerCase().includes('mobi');
     const setPlayerAppearanceDebounced = _.debounce(this.setPlayerAppearance, 250);
     window.addEventListener('resize', setPlayerAppearanceDebounced);
   }
