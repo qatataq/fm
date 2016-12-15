@@ -7,7 +7,7 @@ import '../styles/Player.css';
 
 class Player extends Component {
   static propTypes = {
-    playlist: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   /**
@@ -17,7 +17,6 @@ class Player extends Component {
   player = {};
   muteButton = {};
   state = {
-    tracks: [],
     index: 0,
   };
 
@@ -28,15 +27,6 @@ class Player extends Component {
     this.audio.paused = navigator.userAgent.toLowerCase().includes('mobi');
     const setPlayerAppearanceDebounced = _.debounce(this.setPlayerAppearance, 250);
     window.addEventListener('resize', setPlayerAppearanceDebounced);
-  }
-
-  /**
-   * Add the tracks from props to a new state
-   */
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playlist) {
-      this.setState({ tracks: nextProps.playlist });
-    }
   }
 
   /**
@@ -56,7 +46,7 @@ class Player extends Component {
     };
     const parameters = {
       duration: isNaN(delay) ? 500 : 1000,
-      easing: [.58,1.6,.57,.87],
+      easing: [.58, 1.6, .57, .87],
       delay: isNaN(delay) ? 0 : delay,
     };
     Velocity(this.player, 'stop', true);
@@ -67,7 +57,7 @@ class Player extends Component {
    * When the track is loaded start fading the volume
    */
   loadedTrack = () => {
-    this.audio.volume= 0;
+    this.audio.volume = 0;
     this.fadeInVolume();
   };
 
@@ -116,10 +106,12 @@ class Player extends Component {
    * Change the current track to the next one from the playlist
    */
   nextTrack = (event) => {
-    const state = this.state,
-          element = event.currentTarget,
-          animParams = { duration:200, easing: [.13,1.67,.72,2] };
-    this.setState({ index: (state.index + 1) % state.tracks.length });
+    const { index } = this.state;
+    const { tracks } = this.props;
+    const element = event.currentTarget;
+    const animParams = { duration:200, easing: [.13,1.67,.72,2] };
+
+    this.setState({ index: (index + 1) % tracks.length });
     this.audio.pause();
     this.audio.load();
     this.audio.play();
@@ -129,7 +121,8 @@ class Player extends Component {
   };
 
   render() {
-    const { tracks, index } = this.state;
+    const { index } = this.state;
+    const { tracks } = this.props;
 
     return (
       <div className="player" ref={player => this.player = player}>

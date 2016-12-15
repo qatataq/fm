@@ -16,7 +16,7 @@ class App extends Component {
    * This will set the initial state of the component
    */
   state = {
-    playlist: [],
+    tracks: [],
     loading: true,
     error: null,
   };
@@ -33,7 +33,7 @@ class App extends Component {
           return track;
         });
         this.setState({
-          playlist: _.shuffle(tracks),
+          tracks: _.shuffle(tracks),
           loading: false,
         });
       })
@@ -55,7 +55,7 @@ class App extends Component {
             {this.state.loading && (<Loader />)}
             {this.state.error && (<Error />)}
         </ReactCSSTransitionGroup>
-        {!this.state.error && <Player playlist={this.state.playlist}/>}
+        {!this.state.error && <Player tracks={this.state.tracks}/>}
         <footer>
           <span>Project at </span>
           <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>,
