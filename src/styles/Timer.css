@@ -14,7 +14,6 @@
 .timer-elapsedtime {
   cx: 72;
   cy: 72;
-  r: 72;
 }
 .timer-wholetime {
   stroke: #fafafa;
@@ -35,6 +34,7 @@
 .timer-text {
   fill:  #d8d7f7;
   letter-spacing: .444;
+  text-align: center;
 }
 @keyframes dash {
   to {

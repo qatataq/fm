@@ -18,6 +18,7 @@ class Player extends Component {
   audio = {};
   player = {};
   muteButton = {};
+  isSwitchingTrack = false;
   state = {
     index: 0,
   };
@@ -32,8 +33,8 @@ class Player extends Component {
   /**
    * When the component has updated trigger the player appearance
    */
-  componentDidUpdate() {
-    this.setPlayerAppearance();
+  componentWillReceiveProps(nextProps) {
+    nextProps.tracks.length && (this.setPlayerAppearance());
   }
 
   /**
@@ -52,17 +53,6 @@ class Player extends Component {
     Velocity(this.player, properties, parameters)
       .then(() => {this.player.style.top = ''});
   };
-
-  /**
-   * Return the following active track info
-   */
-  getTime = () => {
-    console.log('ok');
-    return {
-      elapsed: 150,
-      total: 300,
-    }
-  }
 
   /**
    * When the track is loaded start fading the volume
@@ -121,14 +111,19 @@ class Player extends Component {
     const { tracks } = this.props;
     const element = event.currentTarget;
     const animParams = { duration:200, easing: [.13,1.67,.72,2] };
-
+    this.isSwitchingTrack = true;
     this.setState({ index: (index + 1) % tracks.length });
     this.audio.pause();
     this.audio.load();
     this.audio.play();
     Velocity(element, { translateX: '8px' }, animParams);
     Velocity(element, 'reverse', animParams)
-        .then(() => { Velocity(element, 'stop', true); });
+        .then(() => {
+          Velocity(element, 'stop', true);
+          this.audio.play(); 
+          this.isSwitchingTrack = false;
+        });
+
   };
 
   /**
@@ -145,7 +140,11 @@ class Player extends Component {
   render() {
     const { index } = this.state;
     const { tracks } = this.props;
-    const { getTrackLink } = this;
+    const {
+      audio,
+      isSwitchingTrack,
+      getTrackLink,
+    } = this;
 
     return (
       <div className="player" ref={player => this.player = player}>
@@ -183,17 +182,24 @@ class Player extends Component {
             </div>
             <div className="track-artist">{tracks.length && tracks[index].user.username}</div>
             <div className="track-label">{tracks.length && tracks[index].label_name}</div>
-            <Timer
-              totalTime={this.getTime}
-              isPlayed={!this.audio.paused}
-            />
+            {tracks.length && (
+              <Timer
+                duration={tracks[index].duration}
+                isPlayed={!audio.paused}
+                isSwitchingTrack={isSwitchingTrack}
+              />
+            )}
             <div className="track-skip" onClick={this.nextTrack}>
               skip this track
             </div>
           </div>
           {tracks.length && (
-            <audio ref={audio => this.audio = audio} autoPlay
-                   onLoadedData={index === 0 && (this.loadedTrack)} onEnded={this.nextTrack}>
+            <audio
+              ref={audio => this.audio = audio}
+              autoPlay
+              onLoadedData={index === 0 && (this.loadedTrack)}
+              onEnded={this.nextTrack}
+            >
               <source src={tracks[index].stream_url}/>
             </audio>
           )}
