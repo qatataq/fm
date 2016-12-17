@@ -45,7 +45,7 @@ class Player extends Component {
       opacity: 1,
     };
     const parameters = {
-      duration: isNaN(delay) ? 500 : 1000,
+      duration: isNaN(delay) ? 0 : 1000,
       easing: [.58, 1.6, .57, .87],
       delay: isNaN(delay) ? 0 : delay,
     };
