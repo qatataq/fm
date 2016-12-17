@@ -8,6 +8,7 @@ import '../styles/Player.css';
 class Player extends Component {
   static propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    playlistToken: PropTypes.string.isRequired
   };
 
   /**
@@ -120,9 +121,21 @@ class Player extends Component {
         .then(() => { Velocity(element, 'stop', true); });
   };
 
+  /**
+   * Return the track link to Soundcloud
+   */
+  getTrackLink = () => {
+    const { index } = this.state
+    const { tracks, playlistToken } = this.props
+    const link = tracks[index].permalink_url || '#'
+
+    return link.substr(0, link.indexOf(playlistToken))
+  }
+
   render() {
     const { index } = this.state;
     const { tracks } = this.props;
+    const { getTrackLink } = this;
 
     return (
       <div className="player" ref={player => this.player = player}>
@@ -155,7 +168,7 @@ class Player extends Component {
           <div className="player-column player-column-light">
             <div className="track-title">
               {tracks.length && (
-                <a href={tracks[index].permalink_url} target="_blank">{tracks[index].title}</a>
+                <a href={getTrackLink()} target="_blank">{tracks[index].title}</a>
               )}
             </div>
             <div className="track-artist">{tracks.length && tracks[index].user.username}</div>

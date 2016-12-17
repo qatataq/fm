@@ -55,7 +55,7 @@ class App extends Component {
             {this.state.loading && (<Loader />)}
             {this.state.error && (<Error />)}
         </ReactCSSTransitionGroup>
-        {!this.state.error && <Player tracks={this.state.tracks}/>}
+        {!this.state.error && <Player tracks={this.state.tracks} playlistToken={SC_PLAYLIST_SECRET_TOKEN} />}
         <footer>
           <span>Project at </span>
           <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>,
