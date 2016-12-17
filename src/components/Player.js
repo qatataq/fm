@@ -9,6 +9,7 @@ import '../styles/Player.css';
 class Player extends Component {
   static propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    playlistToken: PropTypes.string.isRequired
   };
 
   /**
@@ -26,32 +27,30 @@ class Player extends Component {
    */
   componentDidMount() {
     this.audio.paused = navigator.userAgent.toLowerCase().includes('mobi');
-    const setPlayerAppearanceDebounced = _.debounce(this.setPlayerAppearance, 250);
-    window.addEventListener('resize', setPlayerAppearanceDebounced);
   }
 
   /**
    * When the component has updated trigger the player appearance
    */
   componentDidUpdate() {
-    this.setPlayerAppearance(1000);
+    this.setPlayerAppearance();
   }
 
   /**
    * Define the position and opacity of the player
    */
-  setPlayerAppearance = (delay) => {
+  setPlayerAppearance = () => {
     const properties = {
-      top: window.innerWidth > 768 ? '18%' : '0px',
-      opacity: 1,
+      top: [window.innerWidth > 768 ? '18%' : '0px', '21%'],
+      opacity: [1, 0],
     };
     const parameters = {
-      duration: isNaN(delay) ? 0 : 1000,
+      duration: [1000, 0],
       easing: [.58, 1.6, .57, .87],
-      delay: isNaN(delay) ? 0 : delay,
+      delay: [1000, 0],
     };
-    Velocity(this.player, 'stop', true);
-    Velocity(this.player, properties, parameters);
+    Velocity(this.player, properties, parameters)
+      .then(() => {this.player.style.top = ''});
   };
 
   /**
@@ -132,9 +131,21 @@ class Player extends Component {
         .then(() => { Velocity(element, 'stop', true); });
   };
 
+  /**
+   * Return the track link to Soundcloud
+   */
+  getTrackLink = () => {
+    const { index } = this.state
+    const { tracks, playlistToken } = this.props
+    const link = tracks[index].permalink_url || '#'
+
+    return link.substr(0, link.indexOf(playlistToken))
+  }
+
   render() {
     const { index } = this.state;
     const { tracks } = this.props;
+    const { getTrackLink } = this;
 
     return (
       <div className="player" ref={player => this.player = player}>
@@ -167,7 +178,7 @@ class Player extends Component {
           <div className="player-column player-column-light">
             <div className="track-title">
               {tracks.length && (
-                <a href={tracks[index].permalink_url} target="_blank">{tracks[index].title}</a>
+                <a href={getTrackLink()} target="_blank">{tracks[index].title}</a>
               )}
             </div>
             <div className="track-artist">{tracks.length && tracks[index].user.username}</div>
