@@ -122,7 +122,6 @@ class Player extends Component {
           Velocity(element, 'stop', true);
           this.isSwitchingTrack = false;
         });
-
   };
 
   /**
