@@ -25,8 +25,6 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-dasharray: 453;
-  stroke-dashoffset: 453;
-  animation: dash 5s linear alternate infinite;
   transform: rotate(-90deg);
   transform-origin: center;
 }
@@ -34,12 +32,6 @@
 .timer-text {
   fill:  #d8d7f7;
   letter-spacing: .444;
-  text-align: center;
-}
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
 }
 
 @media screen and (max-width: 769px) {
