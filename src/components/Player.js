@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Velocity from 'velocity-animate';
 import _ from 'lodash';
 
+import Timer from './Timer';
 import { Play, Mute } from './Icons';
 import '../styles/Player.css';
 
@@ -160,6 +161,7 @@ class Player extends Component {
             </div>
             <div className="track-artist">{tracks.length && tracks[index].user.username}</div>
             <div className="track-label">{tracks.length && tracks[index].label_name}</div>
+            <Timer />
             <div className="track-skip" onClick={this.nextTrack}>
               skip this track
             </div>

@@ -1,0 +1,20 @@
+.player-column .track-timer {
+  position: absolute;
+  bottom: 22%;
+  right: 25%;
+  transform: translateX(50%);
+}
+
+@media screen and (max-width: 769px) {
+  .player-column .track-timer {
+    bottom: 40%;
+    right: 50%;
+    transform: translate(50%, 50%);
+  }
+}
+
+@media screen and (max-height: 600px) {
+    .player-column .track-timer {
+      display: none;
+    }
+}
