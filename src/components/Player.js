@@ -120,7 +120,6 @@ class Player extends Component {
     Velocity(element, 'reverse', animParams)
         .then(() => {
           Velocity(element, 'stop', true);
-          this.audio.play(); 
           this.isSwitchingTrack = false;
         });
 
