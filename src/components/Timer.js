@@ -3,6 +3,19 @@ import React, { Component, PropTypes } from 'react'
 import '../styles/Timer.css'
 
 class Timer extends Component {
+  static PropTypes = {
+    totalTime: PropTypes.func.isRequired,
+    isPlayed: PropTypes.bool.isRequired,
+  }
+
+
+  componentDidMount() {
+  }
+
+  tick = () => {
+    console.log('ok');
+  }
+
   render() {
     return (
       <div className="track-timer">

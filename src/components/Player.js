@@ -55,6 +55,17 @@ class Player extends Component {
   };
 
   /**
+   * Return the following active track info
+   */
+  getTime = () => {
+    console.log('ok');
+    return {
+      elapsed: 150,
+      total: 300,
+    }
+  }
+
+  /**
    * When the track is loaded start fading the volume
    */
   loadedTrack = () => {
@@ -161,7 +172,10 @@ class Player extends Component {
             </div>
             <div className="track-artist">{tracks.length && tracks[index].user.username}</div>
             <div className="track-label">{tracks.length && tracks[index].label_name}</div>
-            <Timer />
+            <Timer
+              totalTime={this.getTime}
+              isPlayed={!this.audio.paused}
+            />
             <div className="track-skip" onClick={this.nextTrack}>
               skip this track
             </div>
