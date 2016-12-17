@@ -26,32 +26,30 @@ class Player extends Component {
    */
   componentDidMount() {
     this.audio.paused = navigator.userAgent.toLowerCase().includes('mobi');
-    const setPlayerAppearanceDebounced = _.debounce(this.setPlayerAppearance, 250);
-    window.addEventListener('resize', setPlayerAppearanceDebounced);
   }
 
   /**
    * When the component has updated trigger the player appearance
    */
   componentDidUpdate() {
-    this.setPlayerAppearance(1000);
+    this.setPlayerAppearance();
   }
 
   /**
    * Define the position and opacity of the player
    */
-  setPlayerAppearance = (delay) => {
+  setPlayerAppearance = () => {
     const properties = {
-      top: window.innerWidth > 768 ? '18%' : '0px',
-      opacity: 1,
+      top: [window.innerWidth > 768 ? '18%' : '0px', '21%'],
+      opacity: [1, 0],
     };
     const parameters = {
-      duration: isNaN(delay) ? 0 : 1000,
+      duration: [1000, 0],
       easing: [.58, 1.6, .57, .87],
-      delay: isNaN(delay) ? 0 : delay,
+      delay: [1000, 0],
     };
-    Velocity(this.player, 'stop', true);
-    Velocity(this.player, properties, parameters);
+    Velocity(this.player, properties, parameters)
+      .then(() => {this.player.style.top = ''});
   };
 
   /**
