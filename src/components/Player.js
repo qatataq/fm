@@ -34,7 +34,9 @@ class Player extends Component {
    * When the component has updated trigger the player appearance
    */
   componentWillReceiveProps(nextProps) {
-    nextProps.tracks.length && (this.setPlayerAppearance());
+    if(this.props.tracks.length === 0 && nextProps.tracks.length !== 0) {
+      this.setPlayerAppearance();
+    }
   }
 
   /**
