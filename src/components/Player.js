@@ -28,6 +28,7 @@ class Player extends Component {
    */
   componentDidMount() {
     this.audio.paused = navigator.userAgent.toLowerCase().includes('mobi');
+    window.addEventListener('keydown', _.debounce(this.resolveKeydown, 300));
   }
 
   /**
@@ -137,6 +138,27 @@ class Player extends Component {
     return link.substr(0, link.indexOf(playlistToken))
   }
 
+  /**
+   * on "space" togglePlay, on "m" toggleMute, on "n", "arrow key right" nextTrack
+   */
+  resolveKeydown = (event) => {
+    event.preventDefault();
+    switch(event.keyCode) {
+      case 32: // space
+        this.togglePlay();
+        break;
+      case 77: // m
+        this.toggleMute();
+        break;
+      case 78: // n
+      case 39: // right-arrow
+        this.nextTrack({ currentTarget: this.audio }); // simulate event.currentTarget
+        break;
+      default:
+    }
+  }
+
+
   render() {
     const { index } = this.state;
     const { tracks } = this.props;
@@ -147,7 +169,10 @@ class Player extends Component {
     } = this;
 
     return (
-      <div className="player" ref={player => this.player = player}>
+      <div
+        className="player"
+        ref={player => this.player = player}
+      >
         <div className="player-shadow"></div>
         <div className="player-background"></div>
         <div className="player-content">
