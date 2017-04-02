@@ -5,6 +5,9 @@
     width: 100%;
     height: 100%;
     background: #f6f6fc;
+    background: -moz-linear-gradient(top,  #f6f6fc 0%, #ffffff 100%);
+    background: -webkit-linear-gradient(top,  #f6f6fc 0%,#ffffff 100%);
+    background: linear-gradient(to bottom,  #f6f6fc 0%,#ffffff 100%);
     overflow: hidden;
 }
 
@@ -37,7 +40,7 @@ footer {
     will-change: opacity;
 }
 
-.loading,
+.loader-loading,
 .error-display {
     position: absolute;
     top: 50%;
@@ -50,16 +53,16 @@ footer {
     max-width: 100%;
 }
 
-.loading img {
+.loader-loading img {
     max-width: 100%;
 }
 
-.loading {
+.loader-loading {
     animation: 2s fade-alternate .3s infinite alternate;
     will-change: opacity;
 }
 
-.loading::after,
+.loader-loading::after,
 .error-display::after {
     position: absolute;
     top: 100%;
@@ -67,7 +70,7 @@ footer {
     height: .7rem;
 }
 
-.loading::after {
+.loader-loading::after {
   content: '';
   margin-top: .5rem;
   background: #8e8ce9;
@@ -92,36 +95,46 @@ footer {
   transition: opacity 500ms ease-in-out;
 }
 
+.app::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    width: 11.25rem;
+    height: 2.25rem;
+    background: url('../images/logo.svg') center no-repeat;
+    background-size: contain;
+}
 
-@media screen and (max-height: 400px) {
+.app::before {
+    content: '';
+    position: fixed;
+    bottom: 3rem;
+    left: 35%;
+    width: 1200px;
+    height: 29rem;
+    background: url('../images/aaa.svg') bottom right no-repeat;
+    background-size: contain;
+}
+
+.is-fadeIn {
+    opacity: 0;
+    animation: fadein .7s ease-in 1s forwards;
+}
+
+@media screen and (max-width: 1024px) {
+    .app::after {
+        left: 50%;
+        transform: translate(-50%, 0);
+        opacity: .8;
+    }
     footer {
         display: none;
     }
 }
-
-@media screen and (min-width: 769px) {
-    .app::before {
-        content: '';
-        position: absolute;
-        top: 3rem;
-        right: -1.5rem;
-        width: 84%;
-        height: 29rem;
-        background: url('../images/aaa.svg') top right no-repeat;
-        background-size: contain;
-    }
-
-    .app::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 27%;
-        height: 82px;
-        max-width: 403px;
-        background: url('../images/logo.svg') center no-repeat;
-        transform: translate(-30%, -50%) rotate(-90deg);
-        transform-origin: center;
-        background-size: contain;
+@media screen and (max-height: 400px) {
+    footer {
+        display: none;
     }
 }
 

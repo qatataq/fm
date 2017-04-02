@@ -5,6 +5,7 @@ A web radio made for [qatataq](https://www.facebook.com/qatataq/) by [Yann Pring
 ## Technologies used
 
 - React
-- SoundCloud
+- Redux
+- SoundCloudApi
 - Lodash
 - VelocityJS

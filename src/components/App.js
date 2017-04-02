@@ -1,69 +1,35 @@
-import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import _ from 'lodash';
-import 'whatwg-fetch';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import Player from './Player';
-import { Loader, Error } from './States';
-import '../styles/App.css';
-
-const SC_CLIENT_ID = 'b8198f1a65c0235a26607a834bcc3062';
-const SC_PLAYLIST_ID = '219590548';
-const SC_PLAYLIST_SECRET_TOKEN = 's-suaqL';
+import Content from './Content'
+import States from './States'
+import Footer from './Footer'
+import { fetchTracks } from '../actions/tracksActions'
+import '../styles/App.css'
 
 class App extends Component {
   /**
-   * This will set the initial state of the component
-   */
-  state = {
-    tracks: [],
-    loading: true,
-    error: null,
-  };
-
-  /**
-   * When the component will mount, for a playlist url we fetch the tracks of this playlist
+   * When the component will mount, fetch the tracks of the playlist
    */
   componentWillMount() {
-    fetch(`https://api.soundcloud.com/playlists/${SC_PLAYLIST_ID}.json?client_id=${SC_CLIENT_ID}&secret_token=${SC_PLAYLIST_SECRET_TOKEN}`)
-      .then(response => response.json())
-      .then(({ tracks }) => {
-        tracks.map(track => {
-          track.stream_url = `${track.stream_url.split('?secret_token')[0]}?client_id=${SC_CLIENT_ID}`;
-          return track;
-        });
-        this.setState({
-          tracks: _.shuffle(tracks),
-          loading: false,
-        });
-      })
-      .catch(error => {
-        this.setState({
-          loading: false,
-          error,
-        });
-      });
+    this.props.fetchTracks()
   }
 
   render() {
     return (
       <div className="app">
-        <ReactCSSTransitionGroup
-           transitionName="fade"
-           transitionEnterTimeout={0}
-           transitionLeaveTimeout={500}>
-            {this.state.loading && (<Loader />)}
-            {this.state.error && (<Error />)}
-        </ReactCSSTransitionGroup>
-        {!this.state.error && <Player tracks={this.state.tracks} playlistToken={SC_PLAYLIST_SECRET_TOKEN} />}
-        <footer>
-          <span>Project at </span>
-          <a href="https://github.com/qatataq/fm" target="_blank">GitHub</a>,
-          using <span className="soundcloud-logo" />
-        </footer>
+        <States />
+        <Content />
+        <Footer />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+const stateToProps = () => ({})
+
+const dispatchToProps = (dispatch) => ({
+  fetchTracks: () => dispatch(fetchTracks()),
+})
+
+export default connect(stateToProps, dispatchToProps)(App)

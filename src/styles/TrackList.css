@@ -1,0 +1,96 @@
+.TrackList {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    transform: translate(-8rem, 0);
+    width: 200%;
+    height: 16rem;
+}
+
+.TrackList-item {
+    width: 8rem;
+    height: 8rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+    opacity: .8;
+    transform-origin: top left;
+    will-change: transform;
+    transform-origin: center;
+    animation: will-block .3s ease-in-out forwards;
+
+}
+
+.TrackList-item.first {
+    width: 11rem;
+    height: 11rem;
+    animation: will-appear .3s ease-in-out forwards;
+    margin-left: 2.5rem;
+}
+
+.TrackList-item.first::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+    z-index: -1;
+    background: #625fe2;
+    box-shadow: 0 5px 26px 10px rgba(0, 0, 0, .1), 0 6px 46px 10px rgba(98, 94, 226, .1);
+    transform: translate(-50%, -50%);
+}
+
+.TrackList-item img {
+    width: 8rem;
+    border-radius: 50%;
+}
+
+.TrackList-item.first img {
+    width: 11rem;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+    .TrackList {
+        top: 35%;
+        transform: translate(-5.625rem, 0);
+        height: 12rem;
+    }
+    .TrackList-item {
+      margin-top: 0;
+    }
+    .TrackList-item.first {
+      margin-left: 0;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 736px) {
+    .TrackList {
+        top: 30%;
+    }
+}
+
+@keyframes will-appear {
+  from {
+    margin-top: 1.5rem;
+    opacity: .8;
+  }
+  to {
+    opacity: 1;
+    margin-top: 1.5rem;
+  }
+}
+
+@keyframes will-block {
+  from {
+    margin-top: 1.5rem;
+    opacity: 1;
+  }
+  to {
+    margin-top: 3rem;
+    opacity: .8;
+  }
+}

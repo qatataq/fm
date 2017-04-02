@@ -1,0 +1,61 @@
+.Info {
+    position: absolute;
+    top: 6rem;
+    left: 50%;
+    width: 356px;
+    height: 8rem;
+    overflow: hidden;
+    transform: translate(-506px, 0);
+}
+
+.Info > * {
+    line-height: 2.5rem;
+}
+
+.Info-title {
+    display: -webkit-box;
+    font-size: 2rem;
+    color: #5b595b;
+    max-height: 5.3rem;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Info-artist {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #625fe2;
+    max-height: 2.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Info-label {
+    font-size: 1.5rem;
+    color: #bdbdbd;
+}
+
+@media screen and (max-width: 1024px) {
+    .Info {
+        top: 3rem;
+        left: 50%;
+        width: 85%;
+        height: 8rem;
+        overflow: hidden;
+        transform: translate(-50%, 0);
+    }
+}
+
+@media screen and (orientation: landscape) and (max-width: 736px) {
+    .Info {
+        top: 50%;
+        left: -5%;
+        transform: translate(-50%, -50%);
+    }
+
+    .Info > * {
+        max-width: 200px;
+    }
+}
