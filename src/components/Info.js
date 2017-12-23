@@ -11,7 +11,7 @@ class Info extends Component {
      const { player } = this.props
      const link = player.track.permalink_url || '#'
 
-     return link.substr(0, link.indexOf('s-suaqL'))
+     return link.substr(0, link.indexOf('s-p1UCC'))
    }
 
   render() {

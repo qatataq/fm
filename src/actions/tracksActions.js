@@ -2,8 +2,8 @@ import _ from 'lodash'
 import 'whatwg-fetch'
 
 const SC_CLIENT_ID = 'b8198f1a65c0235a26607a834bcc3062'
-const SC_PLAYLIST_ID = '219590548'
-const SC_PLAYLIST_SECRET_TOKEN = 's-suaqL'
+const SC_PLAYLIST_ID = '401766848'
+const SC_PLAYLIST_SECRET_TOKEN = 's-p1UCC'
 
 const requestTracks = payload => ({
   type: 'REQUEST_TRACKS',
